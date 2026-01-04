@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV — Joe Wapshott</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+            const saved = localStorage.getItem('theme');
+            const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-card: rgba(241, 245, 249, 0.8);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --accent: #0369a1;
+            --accent-muted: rgba(3, 105, 161, 0.1);
+            --border: #e2e8f0;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.8);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent: #38bdf8;
+            --accent-muted: rgba(56, 189, 248, 0.1);
+            --border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            color: var(--text-muted);
+            transition: color 0.2s ease, background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .theme-toggle:hover {
+            color: var(--text-primary);
+            background-color: var(--accent-muted);
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .theme-toggle .sun-icon { display: none; }
+        .theme-toggle .moon-icon { display: block; }
+
+        [data-theme="dark"] .theme-toggle .sun-icon { display: block; }
+        [data-theme="dark"] .theme-toggle .moon-icon { display: none; }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 64px 24px 96px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 48px;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Header */
+        .cv-header {
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cv-header h1 {
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .cv-header .title {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .cv-header .contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .cv-header .contact a {
+            color: var(--text-muted);
+        }
+
+        .cv-header .contact a:hover {
+            color: var(--accent);
+        }
+
+        .cv-header .summary {
+            margin-top: 24px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Sections */
+        .cv-section {
+            margin-bottom: 40px;
+        }
+
+        .cv-section h2 {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        /* Experience items */
+        .cv-item {
+            margin-bottom: 32px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cv-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .cv-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            gap: 16px;
+        }
+
+        .cv-item h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .cv-item .company {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .cv-item .dates {
+            font-size: 14px;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .cv-item .description {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .cv-item ul {
+            margin-left: 0;
+            padding-left: 20px;
+        }
+
+        .cv-item li {
+            margin-bottom: 6px;
+            color: var(--text-secondary);
+        }
+
+        .cv-item li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .skill-category h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .skill-category p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Education */
+        .education-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .education-item h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .education-item .degree {
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .education-item .details {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .education-item .dates {
+            font-size: 14px;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        /* Print button */
+        .print-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .print-btn:hover {
+            background: var(--accent-muted);
+            color: var(--text-primary);
+            border-color: var(--accent);
+        }
+
+        .print-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 48px;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: #1a1a1a;
+                font-size: 11pt;
+            }
+
+            .theme-toggle,
+            .back-link,
+            .print-btn {
+                display: none !important;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+
+            .header-row {
+                margin-bottom: 24px;
+            }
+
+            .cv-header {
+                margin-bottom: 24px;
+                padding-bottom: 16px;
+            }
+
+            .cv-header h1 {
+                font-size: 24pt;
+            }
+
+            .cv-header .title {
+                font-size: 12pt;
+            }
+
+            .cv-header .contact {
+                gap: 12px;
+                font-size: 10pt;
+            }
+
+            .cv-header .contact a {
+                color: #1a1a1a;
+            }
+
+            .cv-section {
+                margin-bottom: 20px;
+            }
+
+            .cv-section h2 {
+                font-size: 10pt;
+                margin-bottom: 12px;
+                color: #0369a1;
+            }
+
+            .cv-item {
+                margin-bottom: 16px;
+                padding-bottom: 16px;
+            }
+
+            .cv-item h3 {
+                font-size: 11pt;
+            }
+
+            .cv-item .company,
+            .cv-item .description {
+                font-size: 10pt;
+            }
+
+            .cv-item .dates {
+                font-size: 9pt;
+            }
+
+            .cv-item li {
+                font-size: 10pt;
+                margin-bottom: 3px;
+            }
+
+            .skills-grid {
+                gap: 16px;
+            }
+
+            .skill-category h4 {
+                font-size: 10pt;
+            }
+
+            .skill-category p {
+                font-size: 10pt;
+            }
+
+            a {
+                color: #1a1a1a;
+                text-decoration: none;
+            }
+
+            @page {
+                margin: 1.5cm;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 48px 20px 64px;
+            }
+
+            .header-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .cv-header h1 {
+                font-size: 28px;
+            }
+
+            .cv-header .contact {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .cv-item-header {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .education-item {
+                flex-direction: column;
+                gap: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" aria-label="Toggle theme">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+    </button>
+
+    <div class="container">
+        <div class="header-row">
+            <a href="/" class="back-link">← Joe Wapshott</a>
+            <button class="print-btn" onclick="window.print()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                    <rect x="6" y="14" width="12" height="8"/>
+                </svg>
+                Print / Save PDF
+            </button>
+        </div>
+
+        <header class="cv-header">
+            <h1>Joe Wapshott</h1>
+            <p class="title">Head of Product</p>
+            <div class="contact">
+                <span>London, UK</span>
+                <a href="mailto:joewapshott@gmail.com">joewapshott@gmail.com</a>
+                <a href="https://linkedin.com/in/joewapshott">linkedin.com/in/joewapshott</a>
+                <a href="https://joewapshott.com">joewapshott.com</a>
+            </div>
+            <p class="summary">
+                Head of Product with 10+ years experience across fintech, insurtech, and enterprise. Track record of building and leading product teams, scaling products from zero to millions of users, and navigating companies through acquisition and profitability. Now combining traditional PM skills with hands-on building using AI tools.
+            </p>
+        </header>
+
+        <section class="cv-section">
+            <h2>Experience</h2>
+
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3>Head of Product</h3>
+                        <p class="company">Cuvva</p>
+                    </div>
+                    <span class="dates">Jan 2024 — Present</span>
+                </div>
+                <p class="description">On-demand car insurance. 1m+ customers. Profitable.</p>
+                <ul>
+                    <li>Joined as first Principal PM; promoted to Head of Product within 12 months</li>
+                    <li>Lead product, design and content. Managing team of 5 (2 PMs, 2 designers, 1 content designer)</li>
+                    <li>Serve as PM for a product team alongside leadership responsibilities</li>
+                    <li>Grew On Demand insurance product to 1m customers and company profitability</li>
+                    <li>Making PRs directly using Cursor to increase shipping speed</li>
+                </ul>
+            </div>
+
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3>Head of Product</h3>
+                        <p class="company">Nude (acquired by Tembo, 2024)</p>
+                    </div>
+                    <span class="dates">Nov 2020 — Jan 2024</span>
+                </div>
+                <p class="description">Savings app helping first-time buyers save for and purchase their first home.</p>
+                <ul>
+                    <li>Hired as Product Lead (employee #15); promoted to Head of Product</li>
+                    <li>Built and led team of 5 (2 PMs, 2 designers, 1 data scientist)</li>
+                    <li>Scaled funds under management from £0 to £35m and ARR from £0 to £2m</li>
+                    <li>Improved customer conversion by 150% and funded accounts conversion by 22%</li>
+                    <li>Owned product vision and strategy through to successful acquisition</li>
+                </ul>
+            </div>
+
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3>Senior Product Manager</h3>
+                        <p class="company">Kroo (formerly B-Social)</p>
+                    </div>
+                    <span class="dates">Jan 2019 — Nov 2020</span>
+                </div>
+                <p class="description">Social challenger bank making it easier to pay and get paid back.</p>
+                <ul>
+                    <li>Defined and developed the pre-banking-licence product strategy and roadmap</li>
+                    <li>Increased activation by 17% through in-app messaging strategy</li>
+                    <li>Improved cohort retention by 12% over 3 months working with customer board</li>
+                    <li>Generated 34% uplift in referrals through experimentation with referral offers</li>
+                </ul>
+            </div>
+
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3>Product Manager</h3>
+                        <p class="company">TAB / Kin + Carta</p>
+                    </div>
+                    <span class="dates">Feb 2017 — Jan 2019</span>
+                </div>
+                <p class="description">Product studio focused on mobile technology for enterprise clients.</p>
+                <ul>
+                    <li>Led product for clients including RBS, Tesco, and Kingfisher (B&Q / Castorama)</li>
+                    <li>Grew app revenue for major client from £0 to £150k per month within 6 months</li>
+                    <li>Achieved Top 20 App Store position for free iOS apps in the UK</li>
+                </ul>
+            </div>
+
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3>Strategy Analyst → Bid Manager → Product Manager</h3>
+                        <p class="company">Atos</p>
+                    </div>
+                    <span class="dates">May 2014 — Feb 2017</span>
+                </div>
+                <p class="description">Multinational IT company focused on large-scale digital transformations.</p>
+                <ul>
+                    <li>Progressed through three roles: strategy, bids, and client development into product</li>
+                    <li>Signed off business case for mobile app used by 4m+ customers</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="cv-section">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4>Product</h4>
+                    <p>Product strategy, roadmapping, discovery, experimentation, analytics, user research, A/B testing, growth</p>
+                </div>
+                <div class="skill-category">
+                    <h4>Leadership</h4>
+                    <p>Team building, hiring, mentoring, stakeholder management, cross-functional collaboration</p>
+                </div>
+                <div class="skill-category">
+                    <h4>Technical</h4>
+                    <p>Cursor, GitHub, SQL, Mixpanel, Amplitude, Figma, working directly in codebases</p>
+                </div>
+                <div class="skill-category">
+                    <h4>Domain</h4>
+                    <p>Fintech, insurtech, regulated industries, B2C mobile apps, marketplaces</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cv-section">
+            <h2>Education</h2>
+            <div class="education-item">
+                <div>
+                    <h3>Aston Business School</h3>
+                    <p class="degree">BSc Business and International Relations</p>
+                    <p class="details">2:1. Distinction in final dissertation.</p>
+                </div>
+                <span class="dates">2009 — 2013</span>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const themeToggle = document.querySelector('.theme-toggle');
+        const html = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
+    </script>
+    <script data-goatcounter="https://joeckick.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
