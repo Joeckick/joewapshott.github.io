@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles — Joe Wapshott</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+            const saved = localStorage.getItem('theme');
+            const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-card: rgba(241, 245, 249, 0.8);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --accent: #0369a1;
+            --accent-muted: rgba(3, 105, 161, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.8);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent: #38bdf8;
+            --accent-muted: rgba(56, 189, 248, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--accent);
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            color: var(--text-muted);
+            transition: color 0.2s ease, background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .theme-toggle:hover {
+            color: var(--text-primary);
+            background-color: var(--accent-muted);
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .theme-toggle .sun-icon { display: none; }
+        .theme-toggle .moon-icon { display: block; }
+
+        [data-theme="dark"] .theme-toggle .sun-icon { display: block; }
+        [data-theme="dark"] .theme-toggle .moon-icon { display: none; }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 96px 24px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 48px;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 48px;
+        }
+
+        .topic-section {
+            margin-bottom: 48px;
+        }
+
+        .topic-title {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--bg-card);
+        }
+
+        .article-list {
+            list-style: none;
+        }
+
+        .article-list li {
+            border-bottom: 1px solid var(--bg-card);
+        }
+
+        .article-list li:last-child {
+            border-bottom: none;
+        }
+
+        .article-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            color: var(--text-primary);
+        }
+
+        .article-link:hover {
+            color: var(--accent);
+        }
+
+        .article-link .title {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .article-link .date {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .article-link .arrow {
+            opacity: 0;
+            transform: translateX(-8px);
+            transition: all 0.2s ease;
+        }
+
+        .article-link:hover .arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 64px 20px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .article-link {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .article-link .date {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" aria-label="Toggle theme">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+    </button>
+
+    <div class="container">
+        <a href="/" class="back-link">← Joe Wapshott</a>
+
+        <h1>Articles</h1>
+
+        <div class="topic-section">
+            <h2 class="topic-title">Building Product</h2>
+            <ul class="article-list">
+                <li>
+                    <a href="/articles/how-to-talk-to-customers-regularly.html" class="article-link">
+                        <span class="title">How to talk to customers regularly</span>
+                        <span class="date">August 2024</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/articles/write-the-hypothesis-first.html" class="article-link">
+                        <span class="title">Write the hypothesis first</span>
+                        <span class="date">January 2025</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/articles/product-design-reviews.html" class="article-link">
+                        <span class="title">Product design reviews will change how you ship, for the better</span>
+                        <span class="date">March 2025</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/articles/dogfooding-isnt-optional.html" class="article-link">
+                        <span class="title">Dogfooding isn't optional</span>
+                        <span class="date">September 2025</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="topic-section">
+            <h2 class="topic-title">Ways of Working</h2>
+            <ul class="article-list">
+                <li>
+                    <a href="/articles/own-the-meeting-notes.html" class="article-link">
+                        <span class="title">Why you should still own meeting notes</span>
+                        <span class="date">October 2024</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/articles/most-meetings-shouldnt-exist.html" class="article-link">
+                        <span class="title">Most meetings shouldn't exist</span>
+                        <span class="date">June 2025</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/articles/start-with-the-conclusion.html" class="article-link">
+                        <span class="title">Start with the conclusion</span>
+                        <span class="date">November 2025</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="topic-section">
+            <h2 class="topic-title">Startup Lessons</h2>
+            <ul class="article-list">
+                <li>
+                    <a href="/articles/gathering-data-when-you-dont-have-a-budget.html" class="article-link">
+                        <span class="title">Gathering data when you don't have a budget</span>
+                        <span class="date">February 2024</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/articles/principles-over-process.html" class="article-link">
+                        <span class="title">Principles over process</span>
+                        <span class="date">April 2024</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/articles/designing-a-referral-program.html" class="article-link">
+                        <span class="title">Designing a referral program that fits your business</span>
+                        <span class="date">June 2024</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const themeToggle = document.querySelector('.theme-toggle');
+        const html = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
+    </script>
+    <script data-goatcounter="https://joeckick.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

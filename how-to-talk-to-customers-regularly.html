@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to talk to customers regularly — Joe Wapshott</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+            const saved = localStorage.getItem('theme');
+            const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-card: rgba(241, 245, 249, 0.8);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --accent: #0369a1;
+            --accent-muted: rgba(3, 105, 161, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.8);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent: #38bdf8;
+            --accent-muted: rgba(56, 189, 248, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        a { color: var(--accent); text-decoration: none; transition: color 0.2s ease; }
+        a:hover { text-decoration: underline; }
+
+        .theme-toggle {
+            position: fixed; top: 24px; right: 24px;
+            background: var(--bg-card); border: none; cursor: pointer;
+            padding: 10px; border-radius: 50%; color: var(--text-muted);
+            transition: color 0.2s ease, background-color 0.2s ease;
+            display: flex; align-items: center; justify-content: center; z-index: 100;
+        }
+        .theme-toggle:hover { color: var(--text-primary); background-color: var(--accent-muted); }
+        .theme-toggle svg { width: 20px; height: 20px; }
+        .theme-toggle .sun-icon { display: none; }
+        .theme-toggle .moon-icon { display: block; }
+        [data-theme="dark"] .theme-toggle .sun-icon { display: block; }
+        [data-theme="dark"] .theme-toggle .moon-icon { display: none; }
+
+        .container { max-width: 640px; margin: 0 auto; padding: 96px 24px; }
+
+        .back-link {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: 14px; color: var(--text-muted); margin-bottom: 48px;
+        }
+        .back-link:hover { color: var(--accent); text-decoration: none; }
+
+        .article-header { margin-bottom: 48px; }
+        .article-category {
+            font-size: 13px; font-weight: 600; letter-spacing: 0.05em;
+            text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+        }
+        h1 {
+            font-size: 36px; font-weight: 600; color: var(--text-primary);
+            letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 16px;
+        }
+        .article-date { font-size: 15px; color: var(--text-muted); }
+
+        .article-content p { margin-bottom: 24px; color: var(--text-secondary); }
+        .article-content p:last-child { margin-bottom: 0; }
+
+        @media (max-width: 640px) {
+            .container { padding: 64px 20px; }
+            h1 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" aria-label="Toggle theme">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+    </button>
+
+    <div class="container">
+        <a href="/articles.html" class="back-link">← Articles</a>
+
+        <header class="article-header">
+            <div class="article-category">Building Product</div>
+            <h1>How to talk to customers regularly</h1>
+            <time class="article-date">August 2024</time>
+        </header>
+
+        <article class="article-content">
+            <p>Every product manager knows they should talk to customers. It's the first thing you learn. But actually getting those conversations scheduled is harder than it sounds. You're busy, they're busy, and the logistics of arranging calls with people who don't work for you can eat up hours.</p>
+
+            <p>Most teams default to one of two extremes. Either they rarely speak to customers because it feels like too much effort, or they spend so much time scheduling that they never get anything else done. Neither works.</p>
+
+            <p>Here's a system that makes it sustainable.</p>
+
+            <p>Start with a survey. Surveys get a bad reputation in product circles, but they're useful for one thing: casting a wide net quickly. Keep it short, use it sparingly, and treat it as the top of a funnel rather than a source of insight on its own.</p>
+
+            <p>At the end of the survey, offer a feedback call. Someone who's just completed a survey is already engaged. They've given you five minutes of their time. Asking for thirty more is a much easier sell at that moment than it would be in a cold email two weeks later.</p>
+
+            <p>Let customers choose their own time. Don't go back and forth over availability. Use Calendly or something similar and let them pick a slot that works. The less friction, the more bookings.</p>
+
+            <p>Incentivise their time. Some customers will talk to you for free, especially if they love the product or have strong opinions. But a small incentive, whether that's a gift card, account credit, or early access to something, increases show rates significantly. Their time is valuable. Treat it that way.</p>
+
+            <p>Send a reminder on the day. People forget. A short reminder the morning of the call, with an easy option to reschedule, reduces no-shows and shows you respect their schedule.</p>
+
+            <p>It takes time to build momentum with this kind of system. But once it's running, you'll have a steady stream of quality conversations without having to think about logistics. And those conversations are some of the highest-ROI work a product team can do.</p>
+        </article>
+    </div>
+
+    <script>
+        const themeToggle = document.querySelector('.theme-toggle');
+        const html = document.documentElement;
+        themeToggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
+    </script>
+    <script data-goatcounter="https://joeckick.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
