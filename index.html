@@ -266,6 +266,53 @@
             height: 24px;
         }
 
+        /* Headshot */
+        .headshot {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .headshot:hover {
+            transform: scale(1.05);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            cursor: pointer;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 8px;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox.active img {
+            transform: scale(1);
+        }
+
         /* Right column - main content */
         .main {
             flex: 1;
@@ -617,6 +664,11 @@
     <!-- Cursor spotlight effect -->
     <div class="spotlight" id="spotlight"></div>
 
+    <!-- Lightbox for headshot -->
+    <div class="lightbox" id="lightbox">
+        <img src="images/Headshot.jpg" alt="Joe Wapshott">
+    </div>
+
     <!-- Loading animation -->
     <div class="loader">
         <div class="loader-name">
@@ -645,6 +697,7 @@
         <div class="layout">
             <!-- Left column -->
             <header class="header">
+                <img src="images/Headshot.jpg" alt="Joe Wapshott" class="headshot">
                 <h1>Joe Wapshott</h1>
                 <h2>Head of Product at Cuvva</h2>
                 <p class="tagline">Hard-won lessons from a decade in Product.</p>
@@ -881,6 +934,24 @@
         });
 
         fadeElements.forEach(el => fadeObserver.observe(el));
+
+        // Lightbox functionality
+        const headshot = document.querySelector('.headshot');
+        const lightbox = document.getElementById('lightbox');
+
+        headshot.addEventListener('click', () => {
+            lightbox.classList.add('active');
+        });
+
+        lightbox.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                lightbox.classList.remove('active');
+            }
+        });
     </script>
 <script data-goatcounter="https://joeckick.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
