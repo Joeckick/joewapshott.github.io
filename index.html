@@ -766,6 +766,16 @@
 
         function highlightNav() {
             const scrollPos = window.scrollY + 200;
+            const pageBottom = window.scrollY + window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
+
+            // If at bottom of page, highlight last section (writing)
+            if (pageBottom >= docHeight - 50) {
+                navLinks.forEach(l => l.classList.remove('active'));
+                const writingLink = document.querySelector('nav a[href="#writing"]');
+                if (writingLink) writingLink.classList.add('active');
+                return;
+            }
 
             sections.forEach(section => {
                 const top = section.offsetTop;
