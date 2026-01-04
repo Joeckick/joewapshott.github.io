@@ -74,6 +74,47 @@
         [data-theme="dark"] .theme-toggle .sun-icon { display: block; }
         [data-theme="dark"] .theme-toggle .moon-icon { display: none; }
 
+        /* Skip to content link */
+        .skip-to-content {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            padding: 12px 24px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px;
+            z-index: 1001;
+            transform: translateY(-150%);
+            transition: transform 0.2s ease;
+        }
+
+        .skip-to-content:focus {
+            transform: translateY(0);
+            color: var(--bg-primary);
+        }
+
+        /* Cursor spotlight effect (desktop only) */
+        .spotlight {
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 30;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        [data-theme="dark"] .spotlight {
+            opacity: 1;
+        }
+
+        @media (max-width: 1024px) {
+            .spotlight {
+                display: none;
+            }
+        }
+
         /* Loading animation */
         .loader {
             position: fixed;
@@ -159,6 +200,26 @@
 
         a:hover {
             color: var(--accent);
+        }
+
+        /* Focus states for accessibility */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
+        .experience-item:focus-visible,
+        .writing-item:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+            background-color: var(--bg-card);
+        }
+
+        .social-links a:focus-visible {
+            outline-offset: 4px;
+            border-radius: 4px;
         }
 
         .container {
@@ -326,10 +387,17 @@
         .about a {
             color: var(--text-primary);
             font-weight: 500;
+            text-decoration: none;
+            background-image: linear-gradient(var(--accent), var(--accent));
+            background-size: 0% 1px;
+            background-position: 0 100%;
+            background-repeat: no-repeat;
+            transition: background-size 0.3s ease, color 0.2s ease;
         }
 
         .about a:hover {
             color: var(--accent);
+            background-size: 100% 1px;
         }
 
         /* Experience section */
@@ -340,11 +408,22 @@
             padding: 24px;
             margin: 0 -24px;
             border-radius: 8px;
-            transition: background-color 0.2s ease;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
         }
 
         .experience-item:hover {
             background-color: var(--bg-card);
+        }
+
+        /* Card group hover dimming effect */
+        .card-group:hover .experience-item,
+        .card-group:hover .writing-item {
+            opacity: 0.5;
+        }
+
+        .card-group:hover .experience-item:hover,
+        .card-group:hover .writing-item:hover {
+            opacity: 1;
         }
 
         .experience-date {
@@ -416,7 +495,7 @@
             padding: 24px;
             margin: 0 -24px;
             border-radius: 8px;
-            transition: background-color 0.2s ease;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
         }
 
         .writing-item:hover {
@@ -518,11 +597,21 @@
             }
 
             nav {
-                margin-bottom: 0;
+                display: none;
             }
 
             .section-heading {
                 display: block;
+                position: sticky;
+                top: 0;
+                background: var(--bg-primary);
+                padding: 16px 0;
+                margin: 0 -24px 16px;
+                padding-left: 24px;
+                padding-right: 24px;
+                z-index: 10;
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
             }
 
             .main {
@@ -557,6 +646,12 @@
     </style>
 </head>
 <body>
+    <!-- Skip to content link for accessibility -->
+    <a href="#content" class="skip-to-content">Skip to Content</a>
+
+    <!-- Cursor spotlight effect -->
+    <div class="spotlight" id="spotlight"></div>
+
     <!-- Loading animation -->
     <div class="loader">
         <div class="loader-name">
@@ -635,7 +730,7 @@
                     </p>
                 </section>
 
-                <section id="experience">
+                <section id="experience" class="card-group">
                     <h2 class="section-heading">Experience</h2>
                     
                     <a href="https://cuvva.com" target="_blank" rel="noopener noreferrer" class="experience-item fade-in">
@@ -705,7 +800,7 @@
                     </a>
                 </section>
 
-                <section id="writing">
+                <section id="writing" class="card-group">
                     <h2 class="section-heading">Writing</h2>
 
                     <a href="/articles/start-with-the-conclusion.html" class="writing-item fade-in">
@@ -816,6 +911,21 @@
 
         window.addEventListener('scroll', highlightNav);
         highlightNav();
+
+        // Cursor spotlight effect
+        const spotlight = document.getElementById('spotlight');
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            updateSpotlight();
+        });
+
+        function updateSpotlight() {
+            spotlight.style.background = `radial-gradient(600px circle at ${mouseX}px ${mouseY}px, rgba(29, 78, 216, 0.15), transparent 80%)`;
+        }
 
         // Scroll-triggered fade-in animations
         const fadeElements = document.querySelectorAll('.fade-in');
