@@ -348,6 +348,27 @@
             margin-bottom: 0;
         }
 
+        /* Scroll-triggered fade-in animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Respect reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }
+
         .section-heading {
             font-size: 12px;
             font-weight: 600;
@@ -708,7 +729,7 @@
 
             <!-- Right column -->
             <main class="main" id="content">
-                <section id="about" class="about">
+                <section id="about" class="about fade-in">
                     <h2 class="section-heading">About</h2>
                     <p>
                         I'm a product leader who believes the best PMs can build, not just spec. At <a href="https://cuvva.com" target="_blank" rel="noopener noreferrer">Cuvva</a>, I lead a team of five while also serving as PM for a product team — still in the weeds, still shipping.
@@ -727,7 +748,7 @@
                 <section id="experience" class="card-group">
                     <h2 class="section-heading">Experience</h2>
                     
-                    <a href="https://cuvva.com" target="_blank" rel="noopener noreferrer" class="experience-item">
+                    <a href="https://cuvva.com" target="_blank" rel="noopener noreferrer" class="experience-item fade-in">
                         <div class="experience-date">2024 — Present</div>
                         <div class="experience-content">
                             <h3>Head of Product · Cuvva <span class="arrow">↗</span></h3>
@@ -740,7 +761,7 @@
                         </div>
                     </a>
 
-                    <a href="https://getnude.com" target="_blank" rel="noopener noreferrer" class="experience-item">
+                    <a href="https://getnude.com" target="_blank" rel="noopener noreferrer" class="experience-item fade-in">
                         <div class="experience-date">2020 — 2024</div>
                         <div class="experience-content">
                             <h3>Head of Product · Nude <span class="arrow">↗</span></h3>
@@ -753,7 +774,7 @@
                         </div>
                     </a>
 
-                    <a href="https://kroo.com" target="_blank" rel="noopener noreferrer" class="experience-item">
+                    <a href="https://kroo.com" target="_blank" rel="noopener noreferrer" class="experience-item fade-in">
                         <div class="experience-date">2019 — 2020</div>
                         <div class="experience-content">
                             <h3>Senior Product Manager · Kroo <span class="arrow">↗</span></h3>
@@ -765,7 +786,7 @@
                         </div>
                     </a>
 
-                    <a href="https://theappbusiness.com" target="_blank" rel="noopener noreferrer" class="experience-item">
+                    <a href="https://theappbusiness.com" target="_blank" rel="noopener noreferrer" class="experience-item fade-in">
                         <div class="experience-date">2017 — 2019</div>
                         <div class="experience-content">
                             <h3>Product Manager · TAB (The App Business) <span class="arrow">↗</span></h3>
@@ -777,7 +798,7 @@
                         </div>
                     </a>
 
-                    <a href="https://atos.net" target="_blank" rel="noopener noreferrer" class="experience-item">
+                    <a href="https://atos.net" target="_blank" rel="noopener noreferrer" class="experience-item fade-in">
                         <div class="experience-date">2014 — 2017</div>
                         <div class="experience-content">
                             <h3>Client Development / Product Manager · Atos <span class="arrow">↗</span></h3>
@@ -797,21 +818,21 @@
                 <section id="writing" class="card-group">
                     <h2 class="section-heading">Writing</h2>
 
-                    <a href="/articles/start-with-the-conclusion.html" class="writing-item">
+                    <a href="/articles/start-with-the-conclusion.html" class="writing-item fade-in">
                         <div class="writing-date">Nov 2025</div>
                         <div class="writing-content">
                             <h3>Start with the conclusion <span class="arrow">→</span></h3>
                         </div>
                     </a>
 
-                    <a href="/articles/dogfooding-isnt-optional.html" class="writing-item">
+                    <a href="/articles/dogfooding-isnt-optional.html" class="writing-item fade-in">
                         <div class="writing-date">Sep 2025</div>
                         <div class="writing-content">
                             <h3>Dogfooding isn't optional <span class="arrow">→</span></h3>
                         </div>
                     </a>
 
-                    <a href="/articles/most-meetings-shouldnt-exist.html" class="writing-item">
+                    <a href="/articles/most-meetings-shouldnt-exist.html" class="writing-item fade-in">
                         <div class="writing-date">Jun 2025</div>
                         <div class="writing-content">
                             <h3>Most meetings shouldn't exist <span class="arrow">→</span></h3>
@@ -920,6 +941,23 @@
         function updateSpotlight() {
             spotlight.style.background = `radial-gradient(600px circle at ${mouseX}px ${mouseY}px, rgba(29, 78, 216, 0.15), transparent 80%)`;
         }
+
+        // Scroll-triggered fade-in animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    fadeObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        fadeElements.forEach(el => fadeObserver.observe(el));
     </script>
 <script data-goatcounter="https://joeckick.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
