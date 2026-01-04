@@ -418,12 +418,19 @@
         /* Experience section */
         .experience-item {
             display: grid;
-            grid-template-columns: 120px 1fr;
+            grid-template-columns: 120px 48px 1fr;
             gap: 16px;
             padding: 24px;
             margin: 0 -24px;
             border-radius: 8px;
             transition: background-color 0.2s ease, opacity 0.2s ease;
+        }
+
+        .company-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            object-fit: cover;
         }
 
         .experience-item:hover {
@@ -648,12 +655,23 @@
                 font-size: 32px;
             }
 
-            .experience-item,
+            .experience-item {
+                grid-template-columns: 40px 1fr;
+            }
+
+            .experience-item .experience-date {
+                display: none;
+            }
+
+            .company-logo {
+                width: 40px;
+                height: 40px;
+            }
+
             .writing-item {
                 grid-template-columns: 1fr;
             }
 
-            .experience-date,
             .writing-date {
                 padding-top: 0;
             }
@@ -750,6 +768,7 @@
                     
                     <a href="https://cuvva.com" target="_blank" rel="noopener noreferrer" class="experience-item fade-in">
                         <div class="experience-date">2024 — Present</div>
+                        <img src="images/cuvva-logo.png" alt="Cuvva logo" class="company-logo">
                         <div class="experience-content">
                             <h3>Head of Product · Cuvva <span class="arrow">↗</span></h3>
                             <p>Joined as first Principal PM; promoted to Head of Product. Leading product, design and content. Managing team of 5 (2 PMs, 3 designers) while also serving as PM for a product team. Grew On Demand insurance to 1m customers and profitability.</p>
@@ -763,6 +782,7 @@
 
                     <a href="https://getnude.com" target="_blank" rel="noopener noreferrer" class="experience-item fade-in">
                         <div class="experience-date">2020 — 2024</div>
+                        <img src="images/nude-logo.png" alt="Nude logo" class="company-logo">
                         <div class="experience-content">
                             <h3>Head of Product · Nude <span class="arrow">↗</span></h3>
                             <p>Joined pre-product-market-fit; promoted to Head of Product. Built and led team of 3 (2 PMs, 1 designer). Improved customer conversion by 150%. Savings app helping first-time buyers from their first £5 to mortgage completion. Acquired by Tembo in 2024.</p>
@@ -776,6 +796,7 @@
 
                     <a href="https://kroo.com" target="_blank" rel="noopener noreferrer" class="experience-item fade-in">
                         <div class="experience-date">2019 — 2020</div>
+                        <img src="images/kroo-logo.png" alt="Kroo logo" class="company-logo">
                         <div class="experience-content">
                             <h3>Senior Product Manager · Kroo <span class="arrow">↗</span></h3>
                             <p>Social challenger bank (formerly B-Social). Defined pre-banking-license product strategy. Increased activation by 17%, improved cohort retention by 12%, and drove 34% uplift in referrals.</p>
@@ -788,6 +809,7 @@
 
                     <a href="https://theappbusiness.com" target="_blank" rel="noopener noreferrer" class="experience-item fade-in">
                         <div class="experience-date">2017 — 2019</div>
+                        <img src="images/kinandcarta-logo.png" alt="TAB / Kin + Carta logo" class="company-logo">
                         <div class="experience-content">
                             <h3>Product Manager · TAB (The App Business) <span class="arrow">↗</span></h3>
                             <p>Product consultancy building mobile apps for enterprise clients including RBS, Tesco, and Kingfisher. Grew app revenue from £0 to £150k p/m; hit Top 20 in App Store.</p>
@@ -800,6 +822,7 @@
 
                     <a href="https://atos.net" target="_blank" rel="noopener noreferrer" class="experience-item fade-in">
                         <div class="experience-date">2014 — 2017</div>
+                        <img src="images/atos-logo.png" alt="Atos logo" class="company-logo">
                         <div class="experience-content">
                             <h3>Client Development / Product Manager · Atos <span class="arrow">↗</span></h3>
                             <p>Enterprise IT services. Progressed through strategy, bids, and client development into product. Signed off business case for mobile app used by 4m+ customers.</p>
