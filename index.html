@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/shared.css">
     <script>
         // Set theme immediately to prevent flash
         (function() {
@@ -16,63 +17,16 @@
         })();
     </script>
     <style>
+        /* Homepage-specific variables */
         :root {
-            --bg-primary: #ffffff;
-            --bg-card: rgba(241, 245, 249, 0.8);
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --text-muted: #94a3b8;
-            --accent: #0369a1;
-            --accent-muted: rgba(3, 105, 161, 0.1);
             --loader-bg: #ffffff;
             --loader-text: #0f172a;
         }
 
         [data-theme="dark"] {
-            --bg-primary: #0f172a;
-            --bg-card: rgba(30, 41, 59, 0.8);
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --accent: #38bdf8;
-            --accent-muted: rgba(56, 189, 248, 0.1);
             --loader-bg: #0f172a;
             --loader-text: #f1f5f9;
         }
-
-        /* Theme toggle */
-        .theme-toggle {
-            position: fixed;
-            top: 24px;
-            right: 24px;
-            background: var(--bg-card);
-            border: none;
-            cursor: pointer;
-            padding: 10px;
-            border-radius: 50%;
-            color: var(--text-muted);
-            transition: color 0.2s ease, background-color 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-        }
-
-        .theme-toggle:hover {
-            color: var(--text-primary);
-            background-color: var(--accent-muted);
-        }
-
-        .theme-toggle svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        .theme-toggle .sun-icon { display: none; }
-        .theme-toggle .moon-icon { display: block; }
-
-        [data-theme="dark"] .theme-toggle .sun-icon { display: block; }
-        [data-theme="dark"] .theme-toggle .moon-icon { display: none; }
 
         /* Skip to content link */
         .skip-to-content {
@@ -170,44 +124,19 @@
             }
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         html {
             scroll-behavior: smooth;
         }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-secondary);
-            line-height: 1.7;
-            font-size: 17px;
-            font-weight: 400;
-            letter-spacing: -0.01em;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
+        /* Homepage link styling (overrides shared.css) */
         a {
             color: var(--text-primary);
             text-decoration: none;
-            transition: color 0.2s ease;
         }
 
         a:hover {
             color: var(--accent);
-        }
-
-        /* Focus states for accessibility */
-        a:focus-visible,
-        button:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 3px;
-            border-radius: 2px;
+            text-decoration: none;
         }
 
         .experience-item:focus-visible,
@@ -653,11 +582,6 @@
         }
 
         @media (max-width: 640px) {
-            .theme-toggle {
-                top: 16px;
-                right: 16px;
-            }
-
             .header h1 {
                 font-family: 'Lora', serif;
                 font-size: 32px;
@@ -884,40 +808,8 @@
         </div>
     </div>
 
+    <script src="/shared.js"></script>
     <script>
-        // Theme toggle
-        const themeToggle = document.querySelector('.theme-toggle');
-        const html = document.documentElement;
-
-        // Check for saved preference or system preference
-        function getPreferredTheme() {
-            const saved = localStorage.getItem('theme');
-            if (saved) return saved;
-            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
-
-        // Apply theme
-        function setTheme(theme) {
-            html.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-        }
-
-        // Initial theme
-        setTheme(getPreferredTheme());
-
-        // Toggle on click
-        themeToggle.addEventListener('click', () => {
-            const current = html.getAttribute('data-theme');
-            setTheme(current === 'dark' ? 'light' : 'dark');
-        });
-
-        // Listen for system preference changes
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-            if (!localStorage.getItem('theme')) {
-                setTheme(e.matches ? 'dark' : 'light');
-            }
-        });
-
         // Hide loader after animation
         window.addEventListener('load', () => {
             setTimeout(() => {

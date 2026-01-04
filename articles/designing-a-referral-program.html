@@ -7,6 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/shared.css">
+    <link rel="stylesheet" href="/article.css">
     <script>
         (function() {
             const saved = localStorage.getItem('theme');
@@ -14,87 +16,6 @@
             document.documentElement.setAttribute('data-theme', theme);
         })();
     </script>
-    <style>
-        :root {
-            --bg-primary: #ffffff;
-            --bg-card: rgba(241, 245, 249, 0.8);
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --text-muted: #94a3b8;
-            --accent: #0369a1;
-            --accent-muted: rgba(3, 105, 161, 0.1);
-        }
-
-        [data-theme="dark"] {
-            --bg-primary: #0f172a;
-            --bg-card: rgba(30, 41, 59, 0.8);
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --accent: #38bdf8;
-            --accent-muted: rgba(56, 189, 248, 0.1);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-secondary);
-            line-height: 1.7;
-            font-size: 17px;
-            font-weight: 400;
-            letter-spacing: -0.01em;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        a { color: var(--accent); text-decoration: none; transition: color 0.2s ease; }
-        a:hover { text-decoration: underline; }
-
-        .theme-toggle {
-            position: fixed; top: 24px; right: 24px;
-            background: var(--bg-card); border: none; cursor: pointer;
-            padding: 10px; border-radius: 50%; color: var(--text-muted);
-            transition: color 0.2s ease, background-color 0.2s ease;
-            display: flex; align-items: center; justify-content: center; z-index: 100;
-        }
-        .theme-toggle:hover { color: var(--text-primary); background-color: var(--accent-muted); }
-        .theme-toggle svg { width: 20px; height: 20px; }
-        .theme-toggle .sun-icon { display: none; }
-        .theme-toggle .moon-icon { display: block; }
-        [data-theme="dark"] .theme-toggle .sun-icon { display: block; }
-        [data-theme="dark"] .theme-toggle .moon-icon { display: none; }
-
-        .container { max-width: 640px; margin: 0 auto; padding: 96px 24px; }
-
-        .back-link {
-            display: inline-flex; align-items: center; gap: 8px;
-            font-size: 14px; color: var(--text-muted); margin-bottom: 48px;
-        }
-        .back-link:hover { color: var(--accent); text-decoration: none; }
-
-        .article-header { margin-bottom: 48px; }
-        .article-category {
-            font-family: 'Inter', sans-serif;
-            font-size: 13px; font-weight: 600; letter-spacing: 0.05em;
-            text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
-        }
-        h1 {
-            font-family: 'Lora', serif;
-            font-size: 36px; font-weight: 600; color: var(--text-primary);
-            letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 16px;
-        }
-        .article-date { font-size: 15px; color: var(--text-muted); }
-
-        .article-content p { margin-bottom: 24px; color: var(--text-secondary); }
-        .article-content p:last-child { margin-bottom: 0; }
-
-        @media (max-width: 640px) {
-            .container { padding: 64px 20px; }
-            h1 { font-size: 28px; }
-        }
-    </style>
 </head>
 <body>
     <button class="theme-toggle" aria-label="Toggle theme">
@@ -139,16 +60,7 @@
         </article>
     </div>
 
-    <script>
-        const themeToggle = document.querySelector('.theme-toggle');
-        const html = document.documentElement;
-        themeToggle.addEventListener('click', () => {
-            const current = html.getAttribute('data-theme');
-            const next = current === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', next);
-            localStorage.setItem('theme', next);
-        });
-    </script>
+    <script src="/shared.js"></script>
     <script data-goatcounter="https://joeckick.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
