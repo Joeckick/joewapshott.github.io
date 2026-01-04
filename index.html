@@ -202,6 +202,26 @@
             color: var(--accent);
         }
 
+        /* Focus states for accessibility */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
+        .experience-item:focus-visible,
+        .writing-item:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+            background-color: var(--bg-card);
+        }
+
+        .social-links a:focus-visible {
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+
         .container {
             max-width: 1280px;
             margin: 0 auto;
