@@ -366,10 +366,17 @@
         .about a {
             color: var(--text-primary);
             font-weight: 500;
+            text-decoration: none;
+            background-image: linear-gradient(var(--accent), var(--accent));
+            background-size: 0% 1px;
+            background-position: 0 100%;
+            background-repeat: no-repeat;
+            transition: background-size 0.3s ease, color 0.2s ease;
         }
 
         .about a:hover {
             color: var(--accent);
+            background-size: 100% 1px;
         }
 
         /* Experience section */
