@@ -939,6 +939,12 @@
             let currentSection = null;
             const triggerPoint = 150; // pixels from top of viewport
 
+            // Debug: log section positions
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                console.log(`Section ${section.id}: top=${rect.top.toFixed(0)}, passes=${rect.top <= triggerPoint}`);
+            });
+
             sections.forEach(section => {
                 const rect = section.getBoundingClientRect();
                 // Section becomes active when its top scrolls above the trigger point
@@ -946,6 +952,8 @@
                     currentSection = section; // Keep overwriting - last one wins
                 }
             });
+
+            console.log('Current section:', currentSection?.id);
 
             if (currentSection) {
                 const id = currentSection.getAttribute('id');
