@@ -902,21 +902,13 @@
 
     <script src="/shared.js"></script>
     <script>
-        // Hide loader after animation (skip on repeat visits)
+        // Hide loader after animation
         window.addEventListener('load', () => {
             const loader = document.querySelector('.loader');
-            const hasVisited = sessionStorage.getItem('visited');
-
-            if (hasVisited) {
-                // Skip animation on repeat visits
+            // Show animation on every page load
+            setTimeout(() => {
                 loader.classList.add('hidden');
-            } else {
-                // First visit - show full animation
-                sessionStorage.setItem('visited', 'true');
-                setTimeout(() => {
-                    loader.classList.add('hidden');
-                }, 1800);
-            }
+            }, 1800);
         });
 
         // Highlight active nav item on scroll
@@ -935,20 +927,26 @@
                 return;
             }
 
-            // Find the last section whose top has scrolled past the trigger point
-            let currentSection = null;
-            const triggerPoint = window.innerHeight * 0.5; // 50% down from top of viewport
+            // Find section with most visible area in viewport
+            let bestSection = null;
+            let bestVisibleArea = 0;
+            const viewportHeight = window.innerHeight;
 
             sections.forEach(section => {
                 const rect = section.getBoundingClientRect();
-                // Section becomes active when its top scrolls above the trigger point
-                if (rect.top <= triggerPoint) {
-                    currentSection = section; // Keep overwriting - last one wins
+                // Calculate how much of the section is visible in viewport
+                const top = Math.max(0, rect.top);
+                const bottom = Math.min(viewportHeight, rect.bottom);
+                const visibleHeight = Math.max(0, bottom - top);
+
+                if (visibleHeight > bestVisibleArea) {
+                    bestVisibleArea = visibleHeight;
+                    bestSection = section;
                 }
             });
 
-            if (currentSection) {
-                const id = currentSection.getAttribute('id');
+            if (bestSection) {
+                const id = bestSection.getAttribute('id');
                 const link = document.querySelector(`nav a[href="#${id}"]`);
                 navLinks.forEach(l => l.classList.remove('active'));
                 if (link) link.classList.add('active');
