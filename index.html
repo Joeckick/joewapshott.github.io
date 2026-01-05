@@ -15,6 +15,12 @@
             const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
             document.documentElement.setAttribute('data-theme', theme);
         })();
+        // Skip loader for returning visitors (checked early to prevent flash)
+        (function() {
+            if (sessionStorage.getItem('visited')) {
+                document.documentElement.classList.add('skip-loader');
+            }
+        })();
     </script>
     <style>
         /* Homepage-specific variables */
@@ -87,7 +93,8 @@
             transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
-        .loader.hidden {
+        .loader.hidden,
+        .skip-loader .loader {
             opacity: 0;
             visibility: hidden;
         }
@@ -902,14 +909,17 @@
 
     <script src="/shared.js"></script>
     <script>
-        // Hide loader after animation
-        window.addEventListener('load', () => {
+        // Hide loader after animation (first visit only)
+        (function() {
             const loader = document.querySelector('.loader');
-            // Show animation on every page load
-            setTimeout(() => {
-                loader.classList.add('hidden');
-            }, 1800);
-        });
+            if (!sessionStorage.getItem('visited')) {
+                // First visit - mark as visited and hide after animation completes
+                sessionStorage.setItem('visited', 'true');
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                }, 1800);
+            }
+        })();
 
         // Highlight active nav item on scroll
         const sections = document.querySelectorAll('section[id]');
