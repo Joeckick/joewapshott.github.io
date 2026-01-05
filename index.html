@@ -924,7 +924,6 @@
         const navLinks = document.querySelectorAll('nav a');
 
         function highlightNav() {
-            const scrollPos = window.scrollY + 200;
             const pageBottom = window.scrollY + window.innerHeight;
             const docHeight = document.documentElement.scrollHeight;
 
@@ -936,17 +935,24 @@
                 return;
             }
 
-            sections.forEach(section => {
-                const top = section.offsetTop;
-                const height = section.offsetHeight;
-                const id = section.getAttribute('id');
-                const link = document.querySelector(`nav a[href="#${id}"]`);
+            // Find which section is most visible in viewport
+            let currentSection = null;
+            const triggerPoint = window.innerHeight * 0.4; // 40% from top of viewport
 
-                if (scrollPos >= top && scrollPos < top + height) {
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    if (link) link.classList.add('active');
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                // Section is "active" when its top is above the trigger point
+                if (rect.top <= triggerPoint) {
+                    currentSection = section;
                 }
             });
+
+            if (currentSection) {
+                const id = currentSection.getAttribute('id');
+                const link = document.querySelector(`nav a[href="#${id}"]`);
+                navLinks.forEach(l => l.classList.remove('active'));
+                if (link) link.classList.add('active');
+            }
         }
 
         window.addEventListener('scroll', highlightNav);
