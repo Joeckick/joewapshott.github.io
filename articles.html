@@ -16,18 +16,8 @@
         })();
     </script>
     <style>
-        /* Articles listing page uses text-primary for links */
-        a {
-            color: var(--text-primary);
-        }
-
-        a:hover {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
         .container {
-            max-width: 720px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 96px 24px;
         }
@@ -42,20 +32,39 @@
             margin-bottom: 48px;
         }
 
-        .topic-section {
-            margin-bottom: 48px;
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .topic-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--bg-card);
+        }
+
+        .topic-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--bg-primary);
         }
 
         .topic-title {
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
+            font-family: 'Lora', serif;
+            font-size: 22px;
             font-weight: 600;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
             color: var(--accent);
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--bg-card);
+            margin: 0;
+        }
+
+        .topic-header .arrow {
+            color: var(--accent);
+            font-size: 20px;
         }
 
         .article-list {
@@ -63,7 +72,7 @@
         }
 
         .article-list li {
-            border-bottom: 1px solid var(--bg-card);
+            border-bottom: 1px solid var(--bg-primary);
         }
 
         .article-list li:last-child {
@@ -74,8 +83,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 0;
+            padding: 14px 0;
             color: var(--text-primary);
+            text-decoration: none;
         }
 
         .article-link:hover {
@@ -83,17 +93,19 @@
         }
 
         .article-link .title {
-            font-family: 'Lora', serif;
-            font-size: 17px;
-            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            text-decoration: underline;
+            text-underline-offset: 2px;
         }
 
-        .article-link .date {
-            font-size: 14px;
-            color: var(--text-muted);
+        .article-link:hover .title {
+            text-decoration: none;
         }
 
         .article-link .arrow {
+            color: var(--accent);
             opacity: 0;
             transform: translateX(-8px);
             transition: all 0.2s ease;
@@ -104,7 +116,7 @@
             transform: translateX(0);
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
             .container {
                 padding: 64px 20px;
             }
@@ -113,14 +125,12 @@
                 font-size: 32px;
             }
 
-            .article-link {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 4px;
+            .topics-grid {
+                grid-template-columns: 1fr;
             }
 
-            .article-link .date {
-                font-size: 13px;
+            .topic-title {
+                font-size: 20px;
             }
         }
     </style>
@@ -148,82 +158,93 @@
 
         <h1>Articles</h1>
 
-        <div class="topic-section">
-            <h2 class="topic-title">Building Product</h2>
-            <ul class="article-list">
-                <li>
-                    <a href="/articles/how-to-talk-to-customers-regularly.html" class="article-link">
-                        <span class="title">How to talk to customers regularly</span>
-                        <span class="date">August 2024</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/articles/write-the-hypothesis-first.html" class="article-link">
-                        <span class="title">Write the hypothesis first</span>
-                        <span class="date">January 2025</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/articles/product-design-reviews.html" class="article-link">
-                        <span class="title">Product design reviews will change how you ship, for the better</span>
-                        <span class="date">March 2025</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/articles/dogfooding-isnt-optional.html" class="article-link">
-                        <span class="title">Dogfooding isn't optional</span>
-                        <span class="date">September 2025</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <div class="topics-grid">
+            <div class="topic-card">
+                <div class="topic-header">
+                    <h2 class="topic-title">Building Product</h2>
+                    <span class="arrow">›</span>
+                </div>
+                <ul class="article-list">
+                    <li>
+                        <a href="/articles/how-to-talk-to-customers-regularly.html" class="article-link">
+                            <span class="title">How to talk to customers regularly</span>
+                            <span class="arrow">›</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/articles/write-the-hypothesis-first.html" class="article-link">
+                            <span class="title">Write the hypothesis first</span>
+                            <span class="arrow">›</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/articles/product-design-reviews.html" class="article-link">
+                            <span class="title">Product design reviews will change how you ship</span>
+                            <span class="arrow">›</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/articles/dogfooding-isnt-optional.html" class="article-link">
+                            <span class="title">Dogfooding isn't optional</span>
+                            <span class="arrow">›</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-        <div class="topic-section">
-            <h2 class="topic-title">Ways of Working</h2>
-            <ul class="article-list">
-                <li>
-                    <a href="/articles/own-the-meeting-notes.html" class="article-link">
-                        <span class="title">Why you should still own meeting notes</span>
-                        <span class="date">October 2024</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/articles/most-meetings-shouldnt-exist.html" class="article-link">
-                        <span class="title">Most meetings shouldn't exist</span>
-                        <span class="date">June 2025</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/articles/start-with-the-conclusion.html" class="article-link">
-                        <span class="title">Start with the conclusion</span>
-                        <span class="date">November 2025</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+            <div class="topic-card">
+                <div class="topic-header">
+                    <h2 class="topic-title">Ways of Working</h2>
+                    <span class="arrow">›</span>
+                </div>
+                <ul class="article-list">
+                    <li>
+                        <a href="/articles/own-the-meeting-notes.html" class="article-link">
+                            <span class="title">Why you should still own meeting notes</span>
+                            <span class="arrow">›</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/articles/most-meetings-shouldnt-exist.html" class="article-link">
+                            <span class="title">Most meetings shouldn't exist</span>
+                            <span class="arrow">›</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/articles/start-with-the-conclusion.html" class="article-link">
+                            <span class="title">Start with the conclusion</span>
+                            <span class="arrow">›</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-        <div class="topic-section">
-            <h2 class="topic-title">Startup Lessons</h2>
-            <ul class="article-list">
-                <li>
-                    <a href="/articles/gathering-data-when-you-dont-have-a-budget.html" class="article-link">
-                        <span class="title">Gathering data when you don't have a budget</span>
-                        <span class="date">February 2024</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/articles/principles-over-process.html" class="article-link">
-                        <span class="title">Principles over process</span>
-                        <span class="date">April 2024</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/articles/designing-a-referral-program.html" class="article-link">
-                        <span class="title">Designing a referral program that fits your business</span>
-                        <span class="date">June 2024</span>
-                    </a>
-                </li>
-            </ul>
+            <div class="topic-card">
+                <div class="topic-header">
+                    <h2 class="topic-title">Startup Lessons</h2>
+                    <span class="arrow">›</span>
+                </div>
+                <ul class="article-list">
+                    <li>
+                        <a href="/articles/gathering-data-when-you-dont-have-a-budget.html" class="article-link">
+                            <span class="title">Gathering data when you don't have a budget</span>
+                            <span class="arrow">›</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/articles/principles-over-process.html" class="article-link">
+                            <span class="title">Principles over process</span>
+                            <span class="arrow">›</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/articles/designing-a-referral-program.html" class="article-link">
+                            <span class="title">Designing a referral program that fits your business</span>
+                            <span class="arrow">›</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
