@@ -248,16 +248,23 @@
         /* Social links */
         .social-links {
             display: flex;
-            gap: 20px;
+            gap: 12px;
             margin-top: 32px;
         }
 
         .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
             color: var(--text-muted);
             transition: color 0.2s ease;
+            touch-action: manipulation;
         }
 
-        .social-links a:hover {
+        .social-links a:hover,
+        .social-links a:active {
             color: var(--text-primary);
         }
 
@@ -275,6 +282,7 @@
             margin-bottom: 24px;
             cursor: pointer;
             transition: transform 0.2s ease;
+            touch-action: manipulation;
         }
 
         .headshot:hover {
@@ -311,6 +319,29 @@
 
         .lightbox.active img {
             transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+            touch-action: manipulation;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         /* Right column - main content */
@@ -404,6 +435,7 @@
             margin: 0 -24px;
             border-radius: 8px;
             transition: background-color 0.2s ease, opacity 0.2s ease;
+            touch-action: manipulation;
         }
 
         .company-logo {
@@ -413,7 +445,8 @@
             object-fit: cover;
         }
 
-        .experience-item:hover {
+        .experience-item:hover,
+        .experience-item:active {
             background-color: var(--bg-card);
         }
 
@@ -499,9 +532,11 @@
             margin: 0 -24px;
             border-radius: 8px;
             transition: background-color 0.2s ease, opacity 0.2s ease;
+            touch-action: manipulation;
         }
 
-        .writing-item:hover {
+        .writing-item:hover,
+        .writing-item:active {
             background-color: var(--bg-card);
         }
 
@@ -666,6 +701,7 @@
 
     <!-- Lightbox for headshot -->
     <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
         <img src="images/Headshot.jpg" alt="Joe Wapshott">
     </div>
 
@@ -863,11 +899,21 @@
 
     <script src="/shared.js"></script>
     <script>
-        // Hide loader after animation
+        // Hide loader after animation (skip on repeat visits)
         window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.querySelector('.loader').classList.add('hidden');
-            }, 1800);
+            const loader = document.querySelector('.loader');
+            const hasVisited = sessionStorage.getItem('visited');
+
+            if (hasVisited) {
+                // Skip animation on repeat visits
+                loader.classList.add('hidden');
+            } else {
+                // First visit - show full animation
+                sessionStorage.setItem('visited', 'true');
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                }, 1800);
+            }
         });
 
         // Highlight active nav item on scroll
@@ -938,12 +984,22 @@
         // Lightbox functionality
         const headshot = document.querySelector('.headshot');
         const lightbox = document.getElementById('lightbox');
+        const lightboxClose = document.querySelector('.lightbox-close');
+        const lightboxImg = lightbox.querySelector('img');
 
         headshot.addEventListener('click', () => {
             lightbox.classList.add('active');
         });
 
-        lightbox.addEventListener('click', () => {
+        // Close when clicking backdrop (not the image)
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+            }
+        });
+
+        // Close button
+        lightboxClose.addEventListener('click', () => {
             lightbox.classList.remove('active');
         });
 

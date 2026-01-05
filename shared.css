@@ -6,7 +6,7 @@
     --bg-card: rgba(241, 245, 249, 0.8);
     --text-primary: #0f172a;
     --text-secondary: #475569;
-    --text-muted: #94a3b8;
+    --text-muted: #64748b;
     --accent: #0369a1;
     --accent-muted: rgba(3, 105, 161, 0.1);
     --border: #e2e8f0;
@@ -18,7 +18,7 @@
     --bg-card: rgba(30, 41, 59, 0.8);
     --text-primary: #f1f5f9;
     --text-secondary: #94a3b8;
-    --text-muted: #64748b;
+    --text-muted: #94a3b8;
     --accent: #38bdf8;
     --accent-muted: rgba(56, 189, 248, 0.1);
     --border: #334155;
@@ -79,6 +79,7 @@ button:focus-visible {
     align-items: center;
     justify-content: center;
     z-index: 100;
+    touch-action: manipulation;
 }
 
 .theme-toggle:hover {
@@ -105,6 +106,7 @@ button:focus-visible {
     font-size: 14px;
     color: var(--text-muted);
     margin-bottom: 48px;
+    touch-action: manipulation;
 }
 
 .back-link:hover {

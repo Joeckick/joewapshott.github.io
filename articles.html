@@ -78,12 +78,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 0;
+            min-height: 44px;
+            padding: 10px 0;
             color: var(--text-primary);
             text-decoration: none;
+            touch-action: manipulation;
         }
 
-        .article-link:hover {
+        .article-link:hover,
+        .article-link:active {
             color: var(--accent);
         }
 
