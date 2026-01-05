@@ -937,13 +937,7 @@
 
             // Find the last section whose top has scrolled past the trigger point
             let currentSection = null;
-            const triggerPoint = 150; // pixels from top of viewport
-
-            // Debug: log section positions
-            sections.forEach(section => {
-                const rect = section.getBoundingClientRect();
-                console.log(`Section ${section.id}: top=${rect.top.toFixed(0)}, passes=${rect.top <= triggerPoint}`);
-            });
+            const triggerPoint = window.innerHeight * 0.4; // 40% down from top of viewport
 
             sections.forEach(section => {
                 const rect = section.getBoundingClientRect();
@@ -952,8 +946,6 @@
                     currentSection = section; // Keep overwriting - last one wins
                 }
             });
-
-            console.log('Current section:', currentSection?.id);
 
             if (currentSection) {
                 const id = currentSection.getAttribute('id');
