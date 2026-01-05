@@ -935,15 +935,15 @@
                 return;
             }
 
-            // Find which section is most visible in viewport
+            // Find the last section whose top has scrolled past the trigger point
             let currentSection = null;
-            const triggerPoint = window.innerHeight * 0.4; // 40% from top of viewport
+            const triggerPoint = 150; // pixels from top of viewport
 
             sections.forEach(section => {
                 const rect = section.getBoundingClientRect();
-                // Section is "active" when its top is above the trigger point
+                // Section becomes active when its top scrolls above the trigger point
                 if (rect.top <= triggerPoint) {
-                    currentSection = section;
+                    currentSection = section; // Keep overwriting - last one wins
                 }
             });
 
